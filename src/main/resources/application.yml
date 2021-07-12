@@ -1,0 +1,17 @@
+# 爬取用户的id
+mid: 466272
+# 计划任务 当前为 1分钟一次。不懂百度cron表达式
+cron: "0 */10 * * * *"
+
+
+spring:
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+
+
+
+server:
+  port: 8080

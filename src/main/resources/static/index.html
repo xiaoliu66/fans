@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <title>@</title>
+</head>
+<body>
+<div id="app">
+    {{message}}
+    <button @click="getData">点我</button>
+</div>
+
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: "Hello,Vue！"
+        },
+        methods: {
+            getData() {
+                axios.get("http://localhost:8080/b/getFansByUid?uid=466272").then((resp)=>{
+                    console.log(resp.data)
+                })
+            }
+        }
+    });
+</script>
+</body>
+</html>
