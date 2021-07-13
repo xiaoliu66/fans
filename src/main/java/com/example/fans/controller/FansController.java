@@ -1,10 +1,14 @@
 package com.example.fans.controller;
 
+import com.example.fans.domain.Fans;
 import com.example.fans.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiaoliu66@github.com
@@ -26,5 +30,10 @@ public class FansController {
         }
 
         return "获取粉丝信息失败！";
+    }
+
+    @GetMapping("/getAll")
+    public List<Fans> getAllFans() {
+        return FansService.getAllFans();
     }
 }

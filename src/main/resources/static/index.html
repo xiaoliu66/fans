@@ -6,26 +6,61 @@
     <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.2.1.min.js"></script>
     <title>@</title>
 </head>
 <body>
 <div id="app">
+    <h3>截止{{time}} *妹b站粉丝减少数量为{{num}}</h3>
+    <div id="report" style="height: 600px;">
 
-    <button @click="getData">点我</button>
+    </div>
 </div>
 
 <script>
     const app = new Vue({
         el: "#app",
         data: {
-
+            num: 0,
+            time: ''
         },
         methods: {
             getData() {
-                axios.get("http://localhost:8080/b/getFansByUid?uid=466272").then((resp)=>{
-                    console.log(resp.data)
+                // 基于准备好的dom，初始化echarts实例
+                var d = document.getElementById('report');
+
+
+                axios.get('http://localhost:8080/b/getAll').then((resp) => {
+
+                    let arr = resp.data;
+                    let xData = [];
+                    let yData = [];
+                    this.num = arr[0].follower - arr[arr.length - 1].follower;
+                    this.time = arr[arr.length - 1].time;
+                    console.log(this.num)
+                    for (let i = 0; i < arr.length; i++) {
+                        xData.push(arr[i].time);
+                        yData.push(arr[i].follower);
+                    }
+
+                    var data = [
+                        {
+                            x: xData,
+                            y: yData,
+                            type: 'scatter'
+                        }
+                    ];
+
+                    Plotly.newPlot(d, data);
+                }).catch((e) => {
+                    console.log(e)
                 })
+
+
             }
+        },
+        mounted() {
+            this.getData();
         }
     });
 </script>

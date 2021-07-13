@@ -1,6 +1,7 @@
 package com.example.fans.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.fans.domain.Fans;
 import com.example.fans.mapper.FansMappper;
 import com.example.fans.service.FansService;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -69,6 +71,12 @@ public class FansServiceImpl implements FansService {
         Integer fans = getFans(uid);
         Fans f = new Fans(null, uid, LocalDateTime.now().toString(), fans);
         fansMappper.insert(f);
+        return fans;
+    }
+
+    @Override
+    public List<Fans> getAllFans() {
+        List<Fans> fans = fansMappper.selectList(null);
         return fans;
     }
 }

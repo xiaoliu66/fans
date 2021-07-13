@@ -56,4 +56,14 @@ public class Fans {
     public void setFollower(Integer follower) {
         this.follower = follower;
     }
+
+    @Override
+    public String toString() {
+        return "Fans{" +
+                "id=" + id +
+                ", mid='" + mid + '\'' +
+                ", time='" + time + '\'' +
+                ", follower=" + follower +
+                '}';
+    }
 }
